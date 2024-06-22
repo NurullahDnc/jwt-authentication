@@ -1,6 +1,6 @@
 import React from "react";
 import Cookies from "universal-cookie";
-import { verifyJwtToken } from "@/libs/auth";
+import { verifyJwtToken } from "../../libs/auth";
 
 const fromServer = async () => {
   const cookies = require("next/headers").cookies;

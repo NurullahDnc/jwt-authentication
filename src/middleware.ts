@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { verifyJwtToken } from "@/libs/auth";
+import { verifyJwtToken } from "./libs/auth";
 
 const AUTH_PAGES = ["/login", "/register"];
 
@@ -8,7 +8,6 @@ const isAuthPages = (url) => AUTH_PAGES.some((page) => page.startsWith(url));
 export async function middleware(request) {
   const { url, nextUrl, cookies } = request;
 
-  // Belirli bir URL'nin giriş veya kayıt sayfası olup olmadığını kontrol eden fonksiyon
   const { value: token } = cookies.get("token") ?? { value: null };
 
   const hasVerifiedToken = token && (await verifyJwtToken(token));

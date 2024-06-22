@@ -21,11 +21,11 @@ export default function LoginPage() {
 
     if (success) {
       const nextUrl = searchParams.get("next");
-      // @see: https://github.com/vercel/next.js/discussions/44149
+
       router.push(nextUrl ?? "/");
       router.refresh();
     } else {
-      // Make your shiny error handling with a great user experience
+
       alert("Login failed");
     }
   };
