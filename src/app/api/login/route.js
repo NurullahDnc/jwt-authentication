@@ -5,22 +5,26 @@ import { getJwtSecretKey } from "@/libs/auth";
 export async function POST(request) {
   const body = await request.json();
 
-  // Make that below if condition as your own backend api call to validate user
+  // kulanıcı kontrolu
   if (body.username === "admin" && body.password === "admin") {
+
+    //token olsuturma, token icerisine kulanıcı bilgierini giriyoruz
     const token = await new SignJWT({
       username: body.username,
-      role: "admin", // Set your own roles
+      role: "admin", 
     })
-      .setProtectedHeader({ alg: "HS256" })
-      .setIssuedAt()
-      .setExpirationTime("30s") // Set your own expiration time
-      .sign(getJwtSecretKey());
+      .setProtectedHeader({ alg: "HS256" }) //algoritması
+      .setIssuedAt()  //jwt olsuturulma tarihi 
+      .setExpirationTime("30s") //token gecerlilik suresi
+      .sign(getJwtSecretKey()); //secret key
 
+      //geriye deger donduruyor basarılı
     const response = NextResponse.json(
       { success: true },
       { status: 200, headers: { "content-type": "application/json" } }
     );
 
+    //tokeni cookie kayıt ediyor
     response.cookies.set({
       name: "token",
       value: token,

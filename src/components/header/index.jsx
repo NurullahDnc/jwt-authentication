@@ -4,6 +4,8 @@ import Link from "next/link";
 export async function Header() {
   const auth = await useAuth.fromServer();
 
+  console.log("auth", auth);
+
   return (
     <header>
       <div>

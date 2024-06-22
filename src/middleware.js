@@ -7,6 +7,8 @@ const isAuthPages = (url) => AUTH_PAGES.some((page) => page.startsWith(url));
 
 export async function middleware(request) {
   const { url, nextUrl, cookies } = request;
+
+  // Belirli bir URL'nin giriş veya kayıt sayfası olup olmadığını kontrol eden fonksiyon
   const { value: token } = cookies.get("token") ?? { value: null };
 
   const hasVerifiedToken = token && (await verifyJwtToken(token));
@@ -31,7 +33,7 @@ export async function middleware(request) {
       new URL(`/login?${searchParams}`, url)
     );
     response.cookies.delete("token");
-
+    
     return response;
   }
 
